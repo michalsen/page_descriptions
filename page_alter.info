@@ -1,0 +1,4 @@
+name = "Page Alter"
+description = "hook_page_alter()."
+core = 7.x
+package = SN Custom 

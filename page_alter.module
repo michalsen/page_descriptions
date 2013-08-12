@@ -1,0 +1,39 @@
+<?php
+
+
+function page_alter_page_alter(&$page){
+/**
+ *
+ * ADD META TAGS FOR SPECIFIC CODES
+ *
+ * name = "Page Alter"
+ * description = "hook_page_alter()."
+ * core = 7.x
+ * package = SN Custom
+ *                    
+ */
+
+/**
+ * dpm('arg0: ' . arg(0));
+ * dpm('arg1: ' . arg(1));
+ * dpm('arg2: ' . arg(2));
+ * dpm('arg3: ' . arg(3));
+ */
+
+$node = node_load(arg(1));
+
+if($node > 1){
+        $content = $node->metatags['description']['value'];
+   }
+ $meta_description = array(
+            '#type' => 'html_tag',
+            '#tag' => 'meta',
+            '#attributes' => array(
+                'name' => 'description',
+                'content' =>  $content
+            )
+   );
+      drupal_add_html_head( $meta_description, 'meta_description' );
+
+
+}
