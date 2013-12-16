@@ -23,16 +23,21 @@ function page_alter_page_alter(&$page){
 
 $node = node_load(arg(1));
 
-//dpm($node);
-//dpm('desc: ' . $node->metatags['und']['description']['value']);
+$front_url = variable_get('site_frontpage', 'node');
+$front_url = trim($front_url, '/');
+$front = explode('/', $front_url);
+if( $front[0]=='node' && ctype_digit($front[1]) ) {
+  $front_nid = $front[1];
+}
+echo $front_nid;
+
+if ( $node->nid == $front_nid ) {
+
+   $content = $node->metatags['und']['description']['value'];
 
 
-if($node->nid > 1){
-        $content = $node->metatags['und']['description']['value'];
-   }
 
- if ( !strlen($content) > 0 ) {
-  $meta_description = array(
+   $meta_description = array(
             '#type' => 'html_tag',
             '#tag' => 'meta',
             '#attributes' => array(
@@ -41,6 +46,7 @@ if($node->nid > 1){
             )
      );
       drupal_add_html_head( $meta_description, 'meta_description' );
+
   }
 
 }
